@@ -1,0 +1,9 @@
+name: wandel
+version: 0.0.1
+description: >
+    wandel is a data migration library.
+author: Robert Beyer <robert@4stern.net>
+executables:
+    server: server
+dependencies:
+    sqljocky5: "^1.0.0"
