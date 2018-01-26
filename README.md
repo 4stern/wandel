@@ -1,5 +1,7 @@
 # wandel
 
+The wandel lib is a migration lib for [dart](https://www.dartlang.org/). The tool itself is not specifically related to databases but basically provides a clean API for running and rolling back tasks. It brings out of the box an MySqlConnector based on [sqljocky5](https://pub.dartlang.org/packages/sqljocky5).
+
 ## Installation
 
 Add it to your dependencies
