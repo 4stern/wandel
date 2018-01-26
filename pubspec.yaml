@@ -1,9 +1,7 @@
 name: wandel
-version: 0.0.1
+version: 1.0.0
 description: >
-    wandel is a data migration library.
+    Wandel is a data migration library. Out of the box with mysql-connector based on sqljocky5.
 author: Robert Beyer <robert@4stern.net>
-executables:
-    server: server
 dependencies:
     sqljocky5: "^1.0.0"
