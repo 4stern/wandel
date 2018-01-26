@@ -7,12 +7,12 @@ class MyWandelMigration1 extends WandelMigration {
     MyWandelMigration1() : super();
 
     Future<Null> up() async {
-        print('up');
+        print('up MyWandelMigration1');
         return null;
     }
 
     Future<Null> down() async {
-        print('down');
+        print('down MyWandelMigration1');
         return null;
     }
 }

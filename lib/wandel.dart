@@ -9,15 +9,16 @@ part 'src/WandelMigration.dart';
 part 'src/WandelConnector.dart';
 part 'src/Connectors/WandelMySQLConnector.dart';
 
-enum WANDEL_DIRECTION {
-    UP, DOWN
+enum WANDEL_MODE {
+
+    // load all migrations and execute `up` on all that missing in storage, add also an entry to storage.
+    UP,
+
+    // load all migrations and execute `down` on all migrations that already been in the storage, remove also the entry from storage.
+    DOWN
 }
 
 class Wandel {
-
-    static final int DIRECTION_UP = 1;
-    static final int DIRECTION_DOWN = 1;
-
     WandelConnector connector;
     List<WandelMigration> migrations;
 
@@ -31,35 +32,58 @@ class Wandel {
         });
     }
 
-    Future<dynamic> execute({WANDEL_DIRECTION direction: WANDEL_DIRECTION.UP}) async {
+    Future<List<WandelMigration>> execute({WANDEL_MODE mode: WANDEL_MODE.UP}) async {
+        List<WandelMigration> touchedList;
         return connector.open()
-        .then((_) => executeMigrations(direction: direction))
-        .then(end);
+        .then((_) async => touchedList = await executeMigrations(mode: mode))
+        .then(end)
+        .then((_) {
+            return touchedList;
+        });
     }
 
     Future<dynamic> end(_) async {
         return connector.close();
     }
 
-    Future<dynamic> executeMigrations({WANDEL_DIRECTION direction: WANDEL_DIRECTION.UP}) async {
-        switch (direction) {
+    Future<List<WandelMigration>> executeMigrations({WANDEL_MODE mode: WANDEL_MODE.UP}) async {
+        switch (mode) {
+            case WANDEL_MODE.DOWN:
+                return executeDown();
 
-            case WANDEL_DIRECTION.UP:
-                Iterator<WandelMigration> iter = migrations.iterator;
-                while(iter.moveNext()) {
-                    WandelMigration migration = iter.current;
-                    await migration.up();
-                }
-                break;
+            case WANDEL_MODE.UP:
+            default:
+                return executeUp();
 
-            case WANDEL_DIRECTION.DOWN:
-                Iterator<WandelMigration> iter = migrations.reversed.iterator;
-                while(iter.moveNext()) {
-                    WandelMigration migration = iter.current;
-                    await migration.down();
-                }
-                break;
         }
+    }
+
+    Future<List<WandelMigration>> executeUp() async {
+        List<String> dbMigrations = await connector.getEntries();
+        Function migrationsNotInStorage = (migration) => !dbMigrations.contains(migration.name);
+        Iterator<WandelMigration> iter = migrations.where(migrationsNotInStorage).iterator;
+        List<WandelMigration> touchedList = new List<WandelMigration>();
+        while(iter.moveNext()) {
+            WandelMigration migration = iter.current;
+            await migration.up();
+            await connector.add(migration);
+            touchedList.add(migration);
+        }
+        return touchedList;
+    }
+
+    Future<List<WandelMigration>> executeDown() async {
+        List<String> dbMigrations = await connector.getEntries();
+        Function migrationsInStorage = (migration) => dbMigrations.contains(migration.name);
+        Iterator<WandelMigration> iter = migrations.reversed.where(migrationsInStorage).iterator;
+        List<WandelMigration> touchedList = new List<WandelMigration>();
+        while(iter.moveNext()) {
+            WandelMigration migration = iter.current;
+            await migration.down();
+            await connector.remove(migration);
+            touchedList.add(migration);
+        }
+        return touchedList;
     }
 
 }
