@@ -5,7 +5,7 @@
 Add it to your dependencies
 ```
 dependencies:
-  wandel: "^1.0.0"
+  wandel: "^1.0.1"
 ```
 
 and install the package
