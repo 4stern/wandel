@@ -22,6 +22,7 @@ class WandelMySQLConnector extends WandelConnector {
         this.password
     }) : super();
 
+    @override
     Future open() async {
         if (pool == null) {
             pool = new ConnectionPool(
@@ -41,6 +42,7 @@ class WandelMySQLConnector extends WandelConnector {
         }
     }
 
+    @override
     Future close({bool forced : false}) async {
         if (forced) {
             pool.closeConnectionsNow();
@@ -60,6 +62,7 @@ class WandelMySQLConnector extends WandelConnector {
         return pool.prepareExecute(sql, []);
     }
 
+    @override
     Future<List<String>> getEntries() async {
         List<String> list = new List<String>();
         String sql = '''
@@ -69,12 +72,13 @@ class WandelMySQLConnector extends WandelConnector {
         ''';
         await pool.prepareExecute(sql, []).then((Results results) async {
             await results.forEach((Row row) async {
-                await list.add(row.name);
+                await list.add(row[0]);
             });
         });
         return list;
     }
 
+    @override
     Future<dynamic> add(WandelMigration migration) async {
         String sql = '''
             INSERT INTO __migration
@@ -87,6 +91,7 @@ class WandelMySQLConnector extends WandelConnector {
         ]);
     }
 
+    @override
     Future<dynamic> remove(WandelMigration migration) async {
         String sql = '''
             DELETE FROM __migration

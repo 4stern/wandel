@@ -26,7 +26,7 @@ class Wandel {
         _connectAllMigrations();
     }
 
-    _connectAllMigrations() {
+    void _connectAllMigrations() {
         migrations.forEach((migration) {
             migration.connector = connector;
         });

@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:wandel/wandel.dart';
 
 import 'migrations/2018-01-18-task1.dart';
 import 'migrations/2018-01-18-task2.dart';
 import 'migrations/2018-01-18-task3.dart';
 
-main() async {
+Future main() async {
 
     List<WandelMigration> migrations = [
         new MyWandelMigration1(),

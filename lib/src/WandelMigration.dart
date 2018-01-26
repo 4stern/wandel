@@ -3,9 +3,9 @@ part of wandel;
 abstract class WandelMigration {
     WandelConnector connector;
 
-    String get name => this.runtimeType.toString();
-
     WandelMigration();
+
+    String get name => this.runtimeType.toString();
 
     Future<dynamic> up();
     Future<dynamic> down();
