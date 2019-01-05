@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2019-01-05
+### Bugfix
+- bugfix missing changes with the increased version of sqljocky
+
 ## [2.0.0] - 2019-01-05
 ### Change
 - change to dart 2.1.0

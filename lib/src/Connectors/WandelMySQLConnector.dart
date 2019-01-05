@@ -10,7 +10,7 @@ class WandelMySQLConnector extends WandelConnector {
     String password;
     int maxConnections;
 
-    ConnectionPool pool;
+    MySqlConnection con;
 
     WandelMySQLConnector({
         this.tableName: '__migration',
@@ -24,34 +24,26 @@ class WandelMySQLConnector extends WandelConnector {
 
     @override
     Future open() async {
-        if (pool == null) {
-            pool = new ConnectionPool(
+        if (con == null) {
+            ConnectionSettings settings = ConnectionSettings(
                 host: this.host,
                 port: this.port,
                 user: this.user,
                 password: this.password,
-                db: this.database,
-                max: this.maxConnections
+                db: this.database
             );
+            con = await MySqlConnection.connect(settings);
 
-            await pool.ping()
-            .then(_checkMigrationTableOrCreate)
-            .then((_) {
-
-            });
+            return _checkMigrationTableOrCreate();
         }
     }
 
     @override
     Future close({bool forced : false}) async {
-        if (forced) {
-            pool.closeConnectionsNow();
-        } else {
-            pool.closeConnectionsWhenNotInUse();
-        }
+        await con.close();
     }
 
-    Future _checkMigrationTableOrCreate(_) async {
+    Future _checkMigrationTableOrCreate() async {
         String sql = '''
             CREATE TABLE IF NOT EXISTS __migration
             (
@@ -59,7 +51,7 @@ class WandelMySQLConnector extends WandelConnector {
                 `createtime` int(10) unsigned NOT NULL
             )
         ''';
-        return pool.prepareExecute(sql, []);
+        return con.prepared(sql, []);
     }
 
     @override
@@ -70,7 +62,7 @@ class WandelMySQLConnector extends WandelConnector {
                 `name`, `createtime`
             FROM __migration
         ''';
-        await pool.prepareExecute(sql, []).then((Results results) async {
+        await con.prepared(sql, []).then((Results results) async {
             await results.forEach((Row row) async {
                 await list.add(row[0].toString());
             });
@@ -86,7 +78,7 @@ class WandelMySQLConnector extends WandelConnector {
             VALUES
                 (?, NOW())
         ''';
-        return pool.prepareExecute(sql, [
+        return con.prepared(sql, [
             migration.name
         ]);
     }
@@ -100,6 +92,6 @@ class WandelMySQLConnector extends WandelConnector {
         List<dynamic> parameters = [
             migration.name
         ];
-        return pool.prepareExecute(sql, parameters);
+        return con.prepared(sql, parameters);
     }
 }
