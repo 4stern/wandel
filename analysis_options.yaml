@@ -1,6 +1,7 @@
 # https://www.dartlang.org/guides/language/analysis-options
 analyzer:
-  strong-mode: true
+  strong-mode:
+    implicit-casts: false
 
 # Source of linter options:
 # http://dart-lang.github.io/linter/lints/options/options.html
@@ -14,4 +15,4 @@ linter:
     # - constant_identifier_names
     - one_member_abstracts
     - slash_for_doc_comments
-    - sort_constructors_first
+    # - sort_constructors_first

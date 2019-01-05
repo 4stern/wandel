@@ -60,8 +60,7 @@ class Wandel {
 
     Future<List<WandelMigration>> executeUp() async {
         List<String> dbMigrations = await connector.getEntries();
-        Function migrationsNotInStorage = (migration) => !dbMigrations.contains(migration.name);
-        Iterator<WandelMigration> iter = migrations.where(migrationsNotInStorage).iterator;
+        Iterator<WandelMigration> iter = migrations.where((WandelMigration migration) => !dbMigrations.contains(migration.name)).iterator;
         List<WandelMigration> touchedList = new List<WandelMigration>();
         while(iter.moveNext()) {
             WandelMigration migration = iter.current;
@@ -74,8 +73,7 @@ class Wandel {
 
     Future<List<WandelMigration>> executeDown() async {
         List<String> dbMigrations = await connector.getEntries();
-        Function migrationsInStorage = (migration) => dbMigrations.contains(migration.name);
-        Iterator<WandelMigration> iter = migrations.reversed.where(migrationsInStorage).iterator;
+        Iterator<WandelMigration> iter = migrations.reversed.where((migration) => dbMigrations.contains(migration.name)).iterator;
         List<WandelMigration> touchedList = new List<WandelMigration>();
         while(iter.moveNext()) {
             WandelMigration migration = iter.current;

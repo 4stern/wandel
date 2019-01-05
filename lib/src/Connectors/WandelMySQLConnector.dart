@@ -72,7 +72,7 @@ class WandelMySQLConnector extends WandelConnector {
         ''';
         await pool.prepareExecute(sql, []).then((Results results) async {
             await results.forEach((Row row) async {
-                await list.add(row[0]);
+                await list.add(row[0].toString());
             });
         });
         return list;

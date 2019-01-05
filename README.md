@@ -7,7 +7,7 @@ The wandel lib is a migration lib for [dart](https://www.dartlang.org/). The too
 Add it to your dependencies
 ```
 dependencies:
-  wandel: "^1.0.1"
+  wandel: "^2.0.0"
 ```
 
 and install the package

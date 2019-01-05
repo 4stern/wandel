@@ -1,10 +1,10 @@
 name: wandel
-version: 1.0.1
+version: 2.0.0
 description: >
     Wandel is a data migration library. Out of the box with mysql-connector based on sqljocky5.
 author: Robert Beyer <robert@4stern.net>
 homepage: https://github.com/4stern/wandel
 environment:
-    sdk: '>=1.11.0 <2.0.0'
+    sdk: '2.1.0'
 dependencies:
-    sqljocky5: "^1.0.0"
+    sqljocky5: "^2.0.0"
