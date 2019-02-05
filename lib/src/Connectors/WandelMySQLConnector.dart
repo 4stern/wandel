@@ -76,7 +76,7 @@ class WandelMySQLConnector extends WandelConnector {
             INSERT INTO __migration
                 (`name`, `createtime`)
             VALUES
-                (?, NOW())
+                (?, unix_timestamp())
         ''';
         return con.prepared(sql, [
             migration.name

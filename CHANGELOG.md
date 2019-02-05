@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2019-02-05
+### Bugfix
+- using unix_timestamp() instead of now() for adding the creation-time value to new entries
+
 ## [2.0.1] - 2019-01-05
 ### Bugfix
 - bugfix missing changes with the increased version of sqljocky
