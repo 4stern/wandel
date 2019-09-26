@@ -5,6 +5,6 @@ description: >
 author: Robert Beyer <robert@4stern.net>
 homepage: https://github.com/4stern/wandel
 environment:
-    sdk: '2.1.0'
+    sdk: ">=2.1.0 <3.0.0"
 dependencies:
     sqljocky5: "^2.0.0"

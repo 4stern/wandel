@@ -62,10 +62,9 @@ class WandelMySQLConnector extends WandelConnector {
                 `name`, `createtime`
             FROM __migration
         ''';
-        await con.prepared(sql, []).then((Results results) async {
-            await results.forEach((Row row) async {
-                await list.add(row[0].toString());
-            });
+        Results results = await (await con.prepared(sql, [])).deStream();
+        await results.forEach((Row row) async {
+            await list.add(row[0].toString());
         });
         return list;
     }
