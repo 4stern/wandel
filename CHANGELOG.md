@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [2.0.2] - 2019-02-05
+- change sdk to bigger range
+
+
+## [2.0.2] - 2019-02-05
 ### Bugfix
 - using unix_timestamp() instead of now() for adding the creation-time value to new entries
 
