@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.0.1] - 2020-09-07
+- remove out of the box mysql connection, need to use the connector from wandel_mysql instead
+
 ## [2.0.3] - 2019-09-26
 - change sdk to bigger range
 
