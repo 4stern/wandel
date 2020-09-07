@@ -7,7 +7,7 @@ A wandel-connector for postgres
 Add it to your dependencies
 ```
 dependencies:
-  wandel_postgres: 3.1.0
+  wandel_postgres: 3.1.3
 ```
 
 and install the package

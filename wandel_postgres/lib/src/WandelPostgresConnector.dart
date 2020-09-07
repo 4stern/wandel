@@ -22,7 +22,7 @@ class WandelPostgresConnector extends WandelConnector {
       CREATE TABLE IF NOT EXISTS ${tableName}
       (
           name char(254) NOT NULL,
-          createtime integer NOT NULL
+          createtime timestamp NOT NULL
       )
         ''';
     return con.query(sql);
@@ -50,7 +50,7 @@ class WandelPostgresConnector extends WandelConnector {
             INSERT INTO ${tableName}
                 (name, createtime)
             VALUES
-                (@name, unix_timestamp())
+                (@name, CURRENT_TIMESTAMP)
         ''';
     return con.query(sql, substitutionValues: <String, dynamic>{
       'name': migration.name,
