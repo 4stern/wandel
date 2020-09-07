@@ -1,5 +1,5 @@
 name: wandel_mysql
-version: 3.0.0
+version: 3.0.1
 description: >
     wandel_mysql provide the mysql connector used in wandel package.
 homepage: https://github.com/4stern/wandel
