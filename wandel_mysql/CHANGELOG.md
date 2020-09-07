@@ -1,3 +1,7 @@
+## [3.1.0] - 2020-09-07
+### Added
+- MySQLWandelMigration
+
 ## [3.0.1] - 2020-09-07
 ### bugfix
 - fix currect wandel version

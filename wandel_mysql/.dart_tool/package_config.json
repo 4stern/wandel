@@ -51,7 +51,7 @@
     },
     {
       "name": "wandel",
-      "rootUri": "file:///home/robert/.pub-cache/hosted/pub.dartlang.org/wandel-2.0.3",
+      "rootUri": "file:///home/robert/.pub-cache/hosted/pub.dartlang.org/wandel-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
@@ -62,7 +62,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-09-07T13:17:39.604678Z",
+  "generated": "2020-09-07T14:12:42.305419Z",
   "generator": "pub",
   "generatorVersion": "2.9.2"
 }

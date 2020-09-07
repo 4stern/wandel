@@ -63,6 +63,6 @@ packages:
       name: wandel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "3.0.1"
 sdks:
   dart: ">=2.4.0 <3.0.0"
