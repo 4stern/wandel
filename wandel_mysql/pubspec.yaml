@@ -1,0 +1,11 @@
+name: wandel_mysql
+version: 3.0.0
+description: >
+    wandel_mysql provide the mysql connector used in wandel package.
+author: Robert Beyer <info@robert-beyer.pro>
+homepage: https://github.com/4stern/wandel
+environment:
+    sdk: ">=2.1.0 <3.0.0"
+dependencies:
+    wandel: 2.0.3
+    sqljocky5: 2.2.1
