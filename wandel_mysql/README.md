@@ -7,7 +7,7 @@ A wandel-connector for mysql, using sqljocky5
 Add it to your dependencies
 ```
 dependencies:
-  wandel_mysql: 3.0.0"
+  wandel_mysql: 3.1.0"
 ```
 
 and install the package
