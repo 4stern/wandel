@@ -1,10 +1,10 @@
-name: wandel_mysql
+name: wandel_postgres
 version: 3.0.1
 description: >
-    wandel_mysql provide the mysql connector used in wandel package.
+    wandel_prostgres provide the postgres connector used in wandel package.
 homepage: https://github.com/4stern/wandel
 environment:
     sdk: ">=2.1.0 <3.0.0"
 dependencies:
     wandel: ^3.0.1
-    sqljocky5: ^2.2.1
+    postgres: ^2.1.1
