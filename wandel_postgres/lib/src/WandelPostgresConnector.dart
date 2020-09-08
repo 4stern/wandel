@@ -54,7 +54,6 @@ class WandelPostgresConnector extends WandelConnector {
       VALUES
           (@name, CURRENT_TIMESTAMP)
     ''';
-    print('add ${migration.name.length} ${migration.name}');
     return con.query(sql, substitutionValues: <String, dynamic>{
       'name': migration.name,
     });
