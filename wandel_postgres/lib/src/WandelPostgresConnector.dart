@@ -31,7 +31,6 @@ class WandelPostgresConnector extends WandelConnector {
   @override
   Future<List<String>> getEntries() async {
     final list = <String>[];
-    print(list);
     final sql = '''
       SELECT
           name, createtime
