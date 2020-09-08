@@ -1,5 +1,5 @@
 name: wandel_postgres
-version: 3.1.3
+version: 3.1.4
 description: >
     wandel_prostgres provide the postgres connector used in wandel package.
 homepage: https://github.com/4stern/wandel

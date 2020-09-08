@@ -21,37 +21,40 @@ class WandelPostgresConnector extends WandelConnector {
     final sql = '''
       CREATE TABLE IF NOT EXISTS ${tableName}
       (
-          name char(254) NOT NULL,
+          name varchar(254) NOT NULL UNIQUE,
           createtime timestamp NOT NULL
       )
-        ''';
+    ''';
     return con.query(sql);
   }
 
   @override
   Future<List<String>> getEntries() async {
     final list = <String>[];
+    print(list);
     final sql = '''
-            SELECT
-                name, createtime
-            FROM ${tableName}
-        ''';
+      SELECT
+          name, createtime
+      FROM ${tableName}
+    ''';
     final results = await con.query(sql);
-    await results.forEach((PostgreSQLResultRow row) async {
-      final map = row.toColumnMap();
-      await list.add(map['name'].toString());
-    });
-    return list;
+
+    list.addAll(
+      results.map((row) => row[0].toString()),
+    );
+
+    return list.toList();
   }
 
   @override
   Future<dynamic> add(WandelMigration migration) async {
     final sql = '''
-            INSERT INTO ${tableName}
-                (name, createtime)
-            VALUES
-                (@name, CURRENT_TIMESTAMP)
-        ''';
+      INSERT INTO ${tableName}
+          (name, createtime)
+      VALUES
+          (@name, CURRENT_TIMESTAMP)
+    ''';
+    print('add ${migration.name.length} ${migration.name}');
     return con.query(sql, substitutionValues: <String, dynamic>{
       'name': migration.name,
     });
@@ -60,9 +63,9 @@ class WandelPostgresConnector extends WandelConnector {
   @override
   Future<dynamic> remove(WandelMigration migration) async {
     final sql = '''
-            DELETE FROM ${tableName}
-            WHERE name = @name
-        ''';
+      DELETE FROM ${tableName}
+      WHERE name = @name
+    ''';
     return con.query(sql, substitutionValues: <String, dynamic>{
       'name': migration.name,
     });
