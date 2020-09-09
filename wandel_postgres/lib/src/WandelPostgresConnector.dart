@@ -4,17 +4,24 @@ class WandelPostgresConnector extends WandelConnector {
   final tableName = '__migration';
 
   final PostgreSQLConnection con;
+  bool openConnectionInternally = false;
 
   WandelPostgresConnector(this.con) : super();
 
   @override
   Future open() async {
+    if (con.isClosed) {
+      await con.open();
+      openConnectionInternally = true;
+    }
     return _checkMigrationTableOrCreate();
   }
 
   @override
   Future close({bool forced = false}) async {
-    await con.close();
+    if (openConnectionInternally) {
+      await con.close();
+    }
   }
 
   Future _checkMigrationTableOrCreate() async {

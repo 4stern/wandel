@@ -1,3 +1,7 @@
+## [3.1.7] - 2020-09-09
+### Changed
+- if the connector gets an already open connection, it will be used. if the connection is not open the connector open it and close it after work is finished.
+
 ## [3.1.6] - 2020-09-08
 ### Changed
 - cleanup
